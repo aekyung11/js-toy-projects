@@ -1,0 +1,87 @@
+@import url(https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css);
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+body {
+  font-family: "Open Sans";
+  font-weight: 300;
+  background-color: #d6e1e5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.title {
+  color: #db5b33;
+  font-weight: 300;
+  text-align: center;
+}
+
+.calendar {
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.calendar-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #6ac080;
+  color: white;
+  width: 100%;
+  height: 50px;
+  border-radius: 8px 8px 0px 0px;
+  padding: 0px 10px;
+}
+.pagination {
+  font-size: 12px;
+}
+.current-month-year {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.current-month {
+  font-size: 1rem;
+}
+.current-year {
+  font-size: 12px;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: 40px 40px 40px 40px 40px 40px 40px;
+  grid-template-rows: 40px 40px 40px 40px 40px 40px;
+  background-color: #fff;
+  width: 100%;
+  height: fit-content;
+  border-radius: 0px 0px 8px 8px;
+  font-size: 12px;
+  padding: 0px 5px 5px;
+}
+.calendar-grid span {
+  justify-self: center;
+  align-self: center;
+}
+
+.sunday {
+  color: red;
+}
+
+.week,
+.prev-next-month-day {
+  color: #c6c6c6;
+}
+
+.today {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #6ac080;
+  border-radius: 50%;
+}
