@@ -53,8 +53,8 @@ body {
 
 .calendar-grid {
   display: grid;
-  grid-template-columns: 40px 40px 40px 40px 40px 40px 40px;
-  grid-template-rows: 40px 40px 40px 40px 40px 40px;
+  grid-template-columns: repeat(7, minmax(0, 40px));
+  /* grid-template-rows: 40px 40px 40px 40px 40px 40px; */
   background-color: #fff;
   width: 100%;
   height: fit-content;
@@ -64,7 +64,9 @@ body {
 }
 .calendar-grid span {
   justify-self: center;
-  align-self: center;
+  display: flex;
+  align-items: center;
+  height: 40px;
 }
 
 .sunday {
