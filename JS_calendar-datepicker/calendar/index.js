@@ -6,7 +6,32 @@ function toIsoDate(d) {
 
 class Calendar {
   constructor($container) {
-    $container = $container;
+    $container.insertAdjacentHTML(
+      "beforeend",
+      `
+      <div class="calendar-nav">
+        <i class="bx bxs-left-arrow"></i>
+        <div class="current-month-year">
+          <span class="current-month">February</span>
+          <span class="current-year">2024</span>
+        </div>
+        <i class="bx bxs-right-arrow"></i>
+      </div>
+      <div class="calendar-grid">
+        <span class="day-of-week">SUN</span>
+        <span class="day-of-week">MON</span>
+        <span class="day-of-week">TUE</span>
+        <span class="day-of-week">WED</span>
+        <span class="day-of-week">THU</span>
+        <span class="day-of-week">FRI</span>
+        <span class="day-of-week">SAT</span>
+      </div>
+      `
+    );
+
+    $container.classList.add("calendar-container");
+    const $calendarGrid = $container.querySelector(".calendar-grid");
+
     const today = new Date();
     const initialDate = new Date(today);
 
@@ -42,7 +67,7 @@ class Calendar {
         day.classList.add("today");
       }
       day.textContent = currentDate.getDate();
-      $container.appendChild(day);
+      $calendarGrid.appendChild(day);
 
       currentDate.setDate(currentDate.getDate() + 1);
     }
