@@ -1,3 +1,17 @@
+function generateMonthNames() {
+  const monthNames = [];
+  const monthDate = new Date(2024, 0, 1);
+
+  for (let i = 0; i < 12; i++) {
+    monthDate.setMonth(i);
+    monthNames.push(monthDate.toLocaleString("en-US", { month: "long" }));
+  }
+
+  return monthNames;
+}
+
+const monthNames = generateMonthNames();
+
 function toIsoDate(d) {
   return `${String(d.getFullYear()).padStart(4, "0")}-${String(
     d.getMonth() + 1
@@ -6,14 +20,17 @@ function toIsoDate(d) {
 
 class Calendar {
   constructor($container) {
+    const today = new Date();
+    const todayIsoDate = toIsoDate(today);
+
     $container.insertAdjacentHTML(
       "beforeend",
       `
       <div class="calendar-nav">
         <i class="bx bxs-left-arrow"></i>
         <div class="current-month-year">
-          <span class="current-month">February</span>
-          <span class="current-year">2024</span>
+          <span class="current-month"></span>
+          <span class="current-year"></span>
         </div>
         <i class="bx bxs-right-arrow"></i>
       </div>
@@ -30,10 +47,14 @@ class Calendar {
     );
 
     $container.classList.add("calendar-container");
-    const $calendarGrid = $container.querySelector(".calendar-grid");
-
-    const today = new Date();
     const initialDate = new Date(today);
+    const year = initialDate.getFullYear();
+    const month = monthNames[initialDate.getMonth()];
+
+    $container.querySelector(".current-year").textContent = year;
+    $container.querySelector(".current-month").textContent = month;
+
+    const $calendarGrid = $container.querySelector(".calendar-grid");
 
     const firstDayOfMonth = new Date(new Date(initialDate).setDate(1));
     const startDay = new Date(
@@ -53,7 +74,9 @@ class Calendar {
 
     const endDayIsoDate = toIsoDate(endDay);
     const currentDate = new Date(startDay);
-    while (toIsoDate(currentDate) <= endDayIsoDate) {
+    let currentDateIsoDate = toIsoDate(currentDate);
+
+    while (currentDateIsoDate <= endDayIsoDate) {
       const day = document.createElement("span");
       day.dataset.isoDate = toIsoDate(currentDate);
       day.classList.add("day");
@@ -63,13 +86,14 @@ class Calendar {
       if (currentDate.getMonth() !== firstDayOfMonth.getMonth()) {
         day.classList.add("prev-next-month-day");
       }
-      if (toIsoDate(currentDate) === toIsoDate(today)) {
+      if (currentDateIsoDate === todayIsoDate) {
         day.classList.add("today");
       }
       day.textContent = currentDate.getDate();
       $calendarGrid.appendChild(day);
 
       currentDate.setDate(currentDate.getDate() + 1);
+      currentDateIsoDate = toIsoDate(currentDate);
     }
   }
 }
