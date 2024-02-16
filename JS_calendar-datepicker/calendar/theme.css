@@ -1,7 +1,7 @@
 @import url(https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css);
 
 .calendar-container {
-  width: fit-content;
+  width: var(--calendar-width);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -17,13 +17,15 @@
   align-items: center;
   background-color: var(--green);
   color: var(--white);
-  width: 100%;
-  height: 50px;
-  border-radius: 8px 8px 0px 0px;
-  padding: 0px 10px;
+  width: var(--calendar-width);
+  height: calc(var(--calendar-width) / 5);
+  border-radius: calc(var(--calendar-width) / 30)
+    calc(var(--calendar-width) / 30) 0px 0px;
+  padding: 0px calc(var(--calendar-width) / 30);
 }
 .pagination {
-  font-size: 12px;
+  cursor: pointer;
+  font-size: calc(var(--calendar-width) / 25);
 }
 .current-month-year {
   display: flex;
@@ -31,28 +33,30 @@
   align-items: center;
 }
 .current-month {
-  font-size: 1rem;
+  font-size: calc(var(--calendar-width) / 18.75);
 }
 .current-year {
-  font-size: 12px;
+  font-size: calc(var(--calendar-width) / 25);
 }
 
 .calendar-grid {
+  cursor: pointer;
   display: grid;
-  grid-template-columns: repeat(7, minmax(0, 40px));
+  grid-template-columns: repeat(7, 1fr);
   /* grid-template-rows: 40px 40px 40px 40px 40px 40px; */
   background-color: var(--white);
   width: 100%;
   height: fit-content;
-  border-radius: 0px 0px 8px 8px;
-  font-size: 12px;
+  border-radius: 0px 0px calc(var(--calendar-width) / 30)
+    calc(var(--calendar-width) / 30);
+  font-size: calc(var(--calendar-width) / 25);
   padding: 0px 5px 5px;
 }
 .calendar-grid span {
   justify-self: center;
   display: flex;
   align-items: center;
-  height: 40px;
+  height: calc(var(--calendar-width) / 7);
 }
 
 .sunday {
@@ -70,6 +74,28 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid var(--green);
+  border: calc(var(--calendar-width) / 300) solid var(--green);
   border-radius: 50%;
+}
+
+.hovered {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--green);
+  border-radius: 50%;
+  color: var(--white);
+}
+
+.selected {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--green);
+  border-radius: 50%;
+  color: var(--white);
 }

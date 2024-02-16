@@ -3,6 +3,7 @@
 *::before {
   box-sizing: border-box;
 }
+
 body {
   font-family: "Open Sans";
   font-weight: 300;
@@ -11,8 +12,13 @@ body {
   flex-direction: column;
   align-items: center;
 }
+
 .title {
   color: #db5b33;
   font-weight: 300;
   text-align: center;
+}
+
+.calendar {
+  --calendar-width: 300px;
 }
