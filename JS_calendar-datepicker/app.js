@@ -1,8 +1,14 @@
-import GenerateCalendar from "./calendar/index.js";
+import Calendar from "./calendar/index.js";
+import DatePicker from "./date-picker/index.js";
 
-const $containers = [...document.querySelectorAll(".calendar")];
-// const $calendarGrids = [...document.querySelectorAll(".calendar-grid")];
+const $calendars = [...document.querySelectorAll(".calendar")];
 
-$containers.forEach(($container) => {
-  GenerateCalendar($container);
+$calendars.forEach(($calendar) => {
+  new Calendar($calendar);
+});
+
+const $datePickers = [...document.querySelectorAll(".date-picker")];
+
+$datePickers.forEach(($datePicker) => {
+  new DatePicker($datePicker);
 });

@@ -1,0 +1,44 @@
+.date-picker-container {
+  position: relative;
+}
+
+.date-picker-calendar {
+  position: absolute;
+  z-index: 3;
+}
+
+.modal-bg {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.date-picker-input {
+  cursor: pointer;
+  width: 200px;
+  padding: 10px;
+  margin: 8px 0px;
+  border: 1px solid gray;
+  position: relative;
+  z-index: 2;
+}
+
+.date-picker-input::placeholder {
+  color: gray;
+  font-size: 14px;
+}
+
+.date-picker-container.calendar-hidden .date-picker-calendar {
+  display: none;
+}
+
+.date-picker-container.calendar-hidden .modal-bg {
+  display: none;
+}
+
+.date-picker-container.calendar-hidden .date-picker-input {
+  z-index: 0;
+}

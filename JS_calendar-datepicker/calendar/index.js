@@ -1,3 +1,8 @@
+document.head.insertAdjacentHTML(
+  "beforeend",
+  '<link rel="stylesheet" href="/JS_calendar-datepicker/calendar/theme.css" />'
+);
+
 function generateMonthNames() {
   const monthNames = [];
   const monthDate = new Date(2024, 0, 1);
@@ -58,10 +63,20 @@ class Calendar {
     this.updateCalendar();
 
     this.grid = this.$container.querySelector(".calendar-grid");
-    $container.onclick = this.onClick;
-    $container.onmouseover = this.onMouseOver;
-    $container.onmouseout = this.onMouseOut;
+    this.grid.onclick = this.onClick;
+    this.grid.onmouseover = this.onMouseOver;
+    this.grid.onmouseout = this.onMouseOut;
   }
+
+  showDate = (isoDate) => {
+    const [yearStr, monthStr, dayStr] = isoDate.split("-");
+    this.calendarDate = new Date(
+      parseInt(yearStr),
+      parseInt(monthStr) - 1,
+      parseInt(dayStr)
+    );
+    this.updateCalendar();
+  };
 
   onMouseOver = (e) => {
     if (e.target.dataset.isoDate !== undefined) {
@@ -87,6 +102,11 @@ class Calendar {
       }
       this.selectedIsoDate = e.target.dataset.isoDate;
       e.target.classList.add("selected");
+      this.$container.dispatchEvent(
+        new CustomEvent("selected-day-change", {
+          detail: this.selectedIsoDate,
+        })
+      );
       console.log(e.target.dataset.isoDate);
     }
   };
@@ -160,8 +180,4 @@ class Calendar {
   }
 }
 
-function GenerateCalendar($container) {
-  return new Calendar($container);
-}
-
-export default GenerateCalendar;
+export default Calendar;

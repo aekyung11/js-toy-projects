@@ -19,6 +19,7 @@ body {
   text-align: center;
 }
 
-.calendar {
+.calendar,
+.date-picker {
   --calendar-width: 300px;
 }
