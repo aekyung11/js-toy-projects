@@ -1,5 +1,5 @@
 class Nav {
-  constructor($container, category) {
+  constructor($container, globalState) {
     this.$container = $container;
     this.$container.classList.add("category-list");
     this.$container.insertAdjacentHTML(
@@ -16,9 +16,11 @@ class Nav {
         </ul>
       `
     );
-    this.category = category;
-    if (this.category) {
-      const $categoryItem = this.$container.querySelector(`#${this.category}`);
+    this.globalState = globalState;
+    if (this.globalState.category) {
+      const $categoryItem = this.$container.querySelector(
+        `#${this.globalState.category}`
+      );
       $categoryItem.classList.add("active");
     }
     this.$container.onclick = this.onClick;
@@ -26,19 +28,14 @@ class Nav {
 
   onClick = (e) => {
     if (e.target.classList.contains("category-item")) {
-      if (this.category) {
+      if (this.globalState.category) {
         const $categoryItem = this.$container.querySelector(
-          `#${this.category}`
+          `#${this.globalState.category}`
         );
         $categoryItem.classList.remove("active");
       }
-      this.category = e.target.id;
+      this.globalState.category = e.target.id;
       e.target.classList.add("active");
-      this.$container.dispatchEvent(
-        new CustomEvent("category-change", {
-          detail: e.target.id,
-        })
-      );
     }
   };
 }

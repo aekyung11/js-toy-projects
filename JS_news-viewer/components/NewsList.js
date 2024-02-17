@@ -1,5 +1,5 @@
 class NewsList {
-  constructor($container, category) {
+  constructor($container, globalState, subscribeToGlobalState) {
     this.$container = $container;
     this.$container.classList.add("news-list-container");
     this.$container.insertAdjacentHTML(
@@ -13,11 +13,17 @@ class NewsList {
       `
     );
 
+    subscribeToGlobalState((key, value) => {
+      if (key === "category") {
+        this.onCategoryChange(value);
+      }
+    });
+
     this.$newsList = this.$container.querySelector("article");
     this.page = 1;
     this.pageSize = 5;
     this.apiKey = "96c1586bba6741f3a0d5a7e100e004a2";
-    this.onCategoryChange(category);
+    this.onCategoryChange(globalState.category);
 
     this.target = this.$container.querySelector(".scroll-observer");
 
@@ -37,7 +43,7 @@ class NewsList {
 
   onCategoryChange = (category) => {
     this.category = category;
-
+    this.page = 1;
     const articles = this.$container.getElementsByClassName("news-item");
     while (articles.length > 0) {
       articles[0].parentNode.removeChild(articles[0]);
