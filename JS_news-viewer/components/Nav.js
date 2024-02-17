@@ -28,14 +28,16 @@ class Nav {
 
   onClick = (e) => {
     if (e.target.classList.contains("category-item")) {
-      if (this.globalState.category) {
-        const $categoryItem = this.$container.querySelector(
-          `#${this.globalState.category}`
-        );
-        $categoryItem.classList.remove("active");
+      if (this.globalState.category !== e.target.id) {
+        if (this.globalState.category) {
+          const $categoryItem = this.$container.querySelector(
+            `#${this.globalState.category}`
+          );
+          $categoryItem.classList.remove("active");
+        }
+        this.globalState.category = e.target.id;
+        e.target.classList.add("active");
       }
-      this.globalState.category = e.target.id;
-      e.target.classList.add("active");
     }
   };
 }
