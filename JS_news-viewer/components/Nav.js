@@ -1,12 +1,12 @@
 class Nav {
-  constructor($container) {
+  constructor($container, category) {
     this.$container = $container;
     this.$container.classList.add("category-list");
     this.$container.insertAdjacentHTML(
       "beforeend",
       `
         <ul>
-          <li id="all" class="category-item active">전체보기</li>
+          <li id="all" class="category-item">전체보기</li>
           <li id="business" class="category-item">비즈니스</li>
           <li id="entertainment" class="category-item">엔터테인먼트</li>
           <li id="health" class="category-item">건강</li>
@@ -16,7 +16,31 @@ class Nav {
         </ul>
       `
     );
+    this.category = category;
+    if (this.category) {
+      const $categoryItem = this.$container.querySelector(`#${this.category}`);
+      $categoryItem.classList.add("active");
+    }
+    this.$container.onclick = this.onClick;
   }
+
+  onClick = (e) => {
+    if (e.target.classList.contains("category-item")) {
+      if (this.category) {
+        const $categoryItem = this.$container.querySelector(
+          `#${this.category}`
+        );
+        $categoryItem.classList.remove("active");
+      }
+      this.category = e.target.id;
+      e.target.classList.add("active");
+      this.$container.dispatchEvent(
+        new CustomEvent("category-change", {
+          detail: e.target.id,
+        })
+      );
+    }
+  };
 }
 
 export default Nav;
