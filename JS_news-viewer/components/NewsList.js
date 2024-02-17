@@ -18,6 +18,21 @@ class NewsList {
     this.pageSize = 5;
     this.apiKey = "96c1586bba6741f3a0d5a7e100e004a2";
     this.onCategoryChange(category);
+
+    this.target = this.$container.querySelector(".scroll-observer");
+
+    const observeIntersection = (target, callback) => {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            callback();
+          }
+        });
+      });
+      observer.observe(target);
+    };
+
+    observeIntersection(this.target, this.addPage);
   }
 
   onCategoryChange = (category) => {
@@ -27,8 +42,6 @@ class NewsList {
     while (articles.length > 0) {
       articles[0].parentNode.removeChild(articles[0]);
     }
-
-    this.addPage();
   };
 
   addPage = async () => {
